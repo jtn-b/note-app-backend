@@ -1,4 +1,13 @@
-import { Controller, Get, Body, Post, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Body,
+  Post,
+  Param,
+  Delete,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { Note } from './note.model';
 import { CreateNoteDto } from './dto/create-note-dto';
@@ -17,6 +26,7 @@ export class NotesController {
   }
 
   @Post()
+  @UsePipes(ValidationPipe)
   createNote(@Body() createNoteDto: CreateNoteDto): Note {
     const { content } = createNoteDto;
     return this.noteService.createNote(content);
